@@ -3,8 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.ts",
+  "bin": {
+    "app": "./build/app.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:package": "tsc && pkg .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/app.ts",
+    "docker-img-delete": "docker rmi mspring03/my-app",
+    "docker-img-build": "docker build -t mspring03/my-app .",
+    "docker-container-run": "docker run -p 3000:80 mspring03/my-app"
   },
   "repository": {
     "type": "git",
@@ -34,6 +42,7 @@
     "mysql2": "^2.2.5",
     "nodemailer": "^6.4.13",
     "path": "^0.12.7",
+    "pkg": "^4.4.9",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.28",
     "winston": "^3.3.3",

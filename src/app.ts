@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import { environment } from './config';
 import 'reflect-metadata';
-import { NotFoundError, ApiError, InternalError } from './core/ApiError';
+import { NotFoundError, ApiError, InternalError } from './core/apiError';
 import { createConnection } from 'typeorm';
 import connectionOptions from './database';
 import morgan from 'morgan';
@@ -34,7 +34,13 @@ createConnection(connectionOptions)
   })
   .catch((error) => Logger.error(error));
 
-app.use('/', router);
+app.use(
+  '/',
+  (req, res: Response) => {
+    res.send('helloworld!');
+  },
+  router,
+);
 
 app.use((req, res, next) => next(new NotFoundError()));
 

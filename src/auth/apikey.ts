@@ -1,5 +1,5 @@
 import express from 'express';
-import { ForbiddenError } from '../core/ApiError';
+import { ForbiddenError } from '../core/apiError';
 import { PublicRequest } from 'app-request';
 import asyncHandler from '../middleware/asyncHandler';
 import { apiKey } from '../config';

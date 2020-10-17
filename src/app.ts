@@ -7,9 +7,12 @@ import 'reflect-metadata';
 import { NotFoundError, ApiError, InternalError } from './core/apiError';
 import { createConnection } from 'typeorm';
 import connectionOptions from './database';
+import redis from 'redis';
 import morgan from 'morgan';
 import { port } from './config';
 import router from './routes';
+
+export const client = redis.createClient(6379, '127.0.0.1');
 
 const app = express();
 
@@ -33,6 +36,8 @@ createConnection(connectionOptions)
     Logger.info('✓ DB connection success.');
   })
   .catch((error) => Logger.error(error));
+
+client.on('connect', () => Logger.info('✓ redis connection success.'));
 
 app.use(
   '/',

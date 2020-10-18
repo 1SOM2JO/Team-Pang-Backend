@@ -39,13 +39,11 @@ createConnection(connectionOptions)
 
 client.on('connect', () => Logger.info('✓ redis connection success.'));
 
-app.use(
-  '/',
-  (req, res: Response) => {
-    res.send('helloworld!');
-  },
-  router,
-);
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'Hello World' });
+});
+
+app.use('/', router);
 
 app.use((req, res, next) => next(new NotFoundError()));
 

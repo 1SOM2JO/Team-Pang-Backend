@@ -28,7 +28,7 @@ export class User {
   uuid: number;
 
   @Column('enum', { enum: Permission })
-  permission: Permission;
+  permission: string;
 
   @Column({ unique: true })
   id: string;

@@ -3,3 +3,4 @@ build
 src/logs
 logs
 .env
+coverage

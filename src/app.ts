@@ -52,7 +52,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof ApiError) {
     ApiError.handle(err, res);
   } else {
-    if (1) {
+    if (environment === 'development') {
       Logger.error(err);
       return res.status(500).send(err.message);
     }

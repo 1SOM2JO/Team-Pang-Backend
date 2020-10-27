@@ -4,8 +4,7 @@ import { ProtectedRequest } from 'app-request';
 import validator, { ValidationSource } from '../middleware/validator';
 import asyncHandler from '../middleware/asyncHandler';
 import { getAccessToken, validateTokenData } from './authUtils';
-import UserRepo from '../database/repository/UserRepo';
-import { getCustomRepository } from 'typeorm';
+import userRepo from '../database/repository/UserRepo';
 import JWT from '../core/JWT';
 import {
   AuthFailureError,
@@ -19,7 +18,6 @@ export default router.use(
   validator(schema.auth, ValidationSource.HEADER),
   asyncHandler(async (req: ProtectedRequest, res, next) => {
     req.accessToken = getAccessToken(req.headers.authorization);
-    const userRepo = getCustomRepository(UserRepo);
 
     try {
       const payload = await JWT.validate(req.accessToken);

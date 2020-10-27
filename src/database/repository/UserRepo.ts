@@ -1,28 +1,29 @@
-import { EntityRepository, Repository } from 'typeorm';
+import { getConnection, getRepository } from 'typeorm';
 import { User } from '../model/User';
-import { promises } from 'dns';
 
-@EntityRepository(User)
-export default class UserRepository extends Repository<User> {
-  public async findByUuid(uuid: string): Promise<User> {
-    return await this.createQueryBuilder('user')
+class UserRepository {
+  public static async findByUuid(uuid: string): Promise<User> {
+    return await getRepository(User)
+      .createQueryBuilder('user')
       .where('user.uuid = :uuid', { uuid })
       .getOne();
   }
 
-  public async findById(id: string): Promise<User> {
-    return await this.createQueryBuilder('user')
+  public static async findById(id: string): Promise<User> {
+    return await getRepository(User)
+      .createQueryBuilder('user')
       .where('user.id = :id', { id })
       .getOne();
   }
 
-  public async findByPhonenumber(phone: string): Promise<User> {
-    return await this.createQueryBuilder('user')
-      .where('user.phonenumber = :phonenumber', { phone })
+  public static async findByPhonenumber(phonenumber: string): Promise<User> {
+    return await getRepository(User)
+      .createQueryBuilder('user')
+      .where('user.phonenumber = :phonenumber', { phonenumber })
       .getOne();
   }
 
-  public async createUser(
+  public static async createUser(
     id: string,
     permission: string,
     nickname: string,
@@ -35,6 +36,24 @@ export default class UserRepository extends Repository<User> {
     user.nickname = nickname;
     user.password = password;
     user.phonenumber = phonenumber;
-    return await this.manager.save(user);
+    return await getRepository(User).save(user);
+  }
+
+  public static async UserKeyUpdate(
+    uuid: number,
+    firstKey: string,
+    secondKey: string,
+  ): Promise<void> {
+    await getConnection()
+      .createQueryBuilder()
+      .update(User)
+      .set({
+        accessTokenKey: firstKey,
+        refreshTokenKey: secondKey,
+      })
+      .where('uuid = :uuid', { uuid })
+      .execute();
   }
 }
+
+export default UserRepository;

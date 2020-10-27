@@ -12,7 +12,12 @@ import morgan from 'morgan';
 import { port } from './config';
 import router from './routes';
 
-export const client = asyncRedis.createClient(6379, '127.0.0.1');
+export const client = asyncRedis.createClient({
+  host: 'redis-server',
+  port: 6379,
+});
+
+client.on('connect', () => Logger.info('✓ redis connection success.'));
 
 const app = express();
 
@@ -37,8 +42,6 @@ createConnection(connectionOptions)
     Logger.info('✓ DB connection success.');
   })
   .catch((error) => Logger.error(error));
-
-client.on('connect', () => Logger.info('✓ redis connection success.'));
 
 app.get('/', (req, res) => {
   res.status(200).json({ message: 'Hello World' });

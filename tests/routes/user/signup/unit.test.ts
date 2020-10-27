@@ -1,7 +1,6 @@
 import {
   USER_ID,
   PERMISSION,
-  USER_PASSWORD_HASH,
   mockUserFindById,
   USER_PASSWORD,
 } from '../signin/mock';
@@ -24,7 +23,7 @@ import supertest from 'supertest';
 import app from '../../../../src/app';
 
 describe('signup smsSender route', () => {
-  const endpoint = '/v1/signup/smsSender';
+  const endpoint = '/user/signup/smsSender';
   const request = supertest(app);
 
   beforeEach(() => {
@@ -50,7 +49,7 @@ describe('signup smsSender route', () => {
       request.post(endpoint).send({ phonenumber: '123' }),
     );
     expect(response.status).toBe(400);
-    expect(response.body.message).toMatch(/valid phonenumber/);
+    expect(response.body.message).toMatch(/phonenumber length/);
     expect(mockUserFindByPhone).not.toBeCalled();
     expect(randomNumSpy).not.toBeCalled();
     expect(smsSendSpy).not.toBeCalled();
@@ -83,10 +82,10 @@ describe('signup smsSender route', () => {
 });
 
 describe('Signup basic route', () => {
-  const endpoint = '/v1/signup/basic';
+  const endpoint = '/user/signup/basic';
   const request = supertest(app);
 
-  const code: number = 123456;
+  const code: string = '123456';
 
   beforeEach(() => {
     mockUserFindById.mockClear();
@@ -111,7 +110,7 @@ describe('Signup basic route', () => {
         nickname: USER_NICKNAME,
         password: USER_PASSWORD,
         phonenumber: USER_PHONENUMBER2,
-        code: 123456,
+        code: code,
       }),
     );
     expect(response.status).toBe(400);
@@ -130,7 +129,7 @@ describe('Signup basic route', () => {
         nickname: USER_NICKNAME,
         password: USER_PASSWORD,
         phonenumber: USER_PHONENUMBER2,
-        code: 123456,
+        code: code,
       }),
     );
     expect(response.status).toBe(400);
@@ -149,7 +148,7 @@ describe('Signup basic route', () => {
         permission: PERMISSION,
         password: USER_PASSWORD,
         phonenumber: USER_PHONENUMBER2,
-        code: 123456,
+        code: code,
       }),
     );
     expect(response.status).toBe(400);
@@ -168,7 +167,7 @@ describe('Signup basic route', () => {
         permission: PERMISSION,
         nickname: USER_NICKNAME,
         phonenumber: USER_PHONENUMBER2,
-        code: 123456,
+        code: code,
       }),
     );
     expect(response.status).toBe(400);
@@ -187,7 +186,7 @@ describe('Signup basic route', () => {
         permission: PERMISSION,
         nickname: USER_NICKNAME,
         password: USER_PASSWORD,
-        code: 123456,
+        code: code,
       }),
     );
     expect(response.status).toBe(400);
@@ -218,7 +217,7 @@ describe('Signup basic route', () => {
     expect(mockUserCreate).not.toBeCalled();
   });
 
-  it('Should send error when user is registered for email', async () => {
+  it('Should send error when user is registered for id', async () => {
     const response = await addHeaders(
       request.post(endpoint).send({
         id: USER_ID,
@@ -226,7 +225,7 @@ describe('Signup basic route', () => {
         nickname: USER_NICKNAME,
         password: USER_PASSWORD,
         phonenumber: USER_PHONENUMBER2,
-        code: 123456,
+        code: code,
       }),
     );
 
@@ -234,6 +233,26 @@ describe('Signup basic route', () => {
     expect(response.body.message).toMatch(/already registered/);
     expect(mockUserFindById).toBeCalledTimes(1);
     expect(redisGetSpy).not.toBeCalled();
+    expect(bcryptHashSpy).not.toBeCalled();
+    expect(mockUserCreate).not.toBeCalled();
+  });
+
+  it('Should send error when phonenumber is not in Cache', async () => {
+    const response = await addHeaders(
+      request.post(endpoint).send({
+        id: TEST_ID,
+        permission: PERMISSION,
+        nickname: USER_NICKNAME,
+        password: USER_PASSWORD,
+        phonenumber: '1234567890123',
+        code: code,
+      }),
+    );
+
+    expect(response.status).toBe(404);
+    expect(response.body.message).toMatch(/not found phonenumber/);
+    expect(mockUserFindById).toBeCalledTimes(1);
+    expect(redisGetSpy).toBeCalledTimes(1);
     expect(bcryptHashSpy).not.toBeCalled();
     expect(mockUserCreate).not.toBeCalled();
   });
@@ -254,10 +273,10 @@ describe('Signup basic route', () => {
     expect(response.body.message).toMatch(/Success/i);
     expect(response.body.data).toBeDefined();
 
-    expect(response.body.data.user).toHaveProperty('id');
-    expect(response.body.data.user).toHaveProperty('permission');
-    expect(response.body.data.user).toHaveProperty('nickname');
-    expect(response.body.data.user).toHaveProperty('phonenumber');
+    expect(response.body.data.createdUser.user).toHaveProperty('id');
+    expect(response.body.data.createdUser.user).toHaveProperty('permission');
+    expect(response.body.data.createdUser.user).toHaveProperty('nickname');
+    expect(response.body.data.createdUser.user).toHaveProperty('phonenumber');
 
     expect(mockUserFindById).toBeCalledTimes(1);
     expect(redisGetSpy).toBeCalledTimes(1);

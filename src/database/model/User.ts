@@ -48,7 +48,7 @@ export class User {
   @Column()
   refreshTokenKey: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
   @OneToMany((type) => Product, (product) => product.user)

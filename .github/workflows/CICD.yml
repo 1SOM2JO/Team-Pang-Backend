@@ -54,7 +54,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: docker image build
-        run: docker build -t 1som2jo .
+        run: docker-compose up --build
 
       - name: upload to registry
         uses: elgohr/Publish-Docker-Github-Action@master

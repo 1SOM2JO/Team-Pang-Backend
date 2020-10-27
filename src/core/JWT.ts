@@ -1,8 +1,6 @@
-import path from 'path';
-import { readFile } from 'fs';
 import { promisify } from 'util';
 import { sign, verify } from 'jsonwebtoken';
-import { InternalError, BadTokenError, TokenExpiredError } from './ApiError';
+import { InternalError, BadTokenError, TokenExpiredError } from './apiError';
 import Logger from './Logger';
 import { tokenInfo } from '../config';
 

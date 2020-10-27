@@ -1,7 +1,7 @@
 import Joi from '@hapi/joi';
 import { Request, Response, NextFunction } from 'express';
 import Logger from '../core/Logger';
-import { BadRequestError } from '../core/ApiError';
+import { BadRequestError } from '../core/apiError';
 
 export enum ValidationSource {
   BODY = 'body',

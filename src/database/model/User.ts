@@ -28,7 +28,7 @@ export class User {
   uuid: number;
 
   @Column('enum', { enum: Permission })
-  permission: Permission;
+  permission: string;
 
   @Column({ unique: true })
   id: string;
@@ -48,7 +48,7 @@ export class User {
   @Column()
   refreshTokenKey: string;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 
   @OneToMany((type) => Product, (product) => product.user)

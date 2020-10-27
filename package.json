@@ -4,11 +4,11 @@
   "description": "",
   "main": "app.ts",
   "bin": {
-    "app": "./build/app.js"
+    "app": "build/app.js"
   },
   "scripts": {
     "test": "jest",
-    "build:package": "tsc && pkg .",
+    "build": "tsc",
     "start": "nodemon src/app.ts",
     "docker-img-delete": "docker rmi mspring03/my-app",
     "docker-img-build": "docker build -t mspring03/my-app .",
@@ -31,7 +31,7 @@
     "@types/redis": "^2.8.28",
     "app-request": "^1.0.2",
     "async-redis": "^1.1.7",
-    "bcrypt": "^4.0.1",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
@@ -48,6 +48,7 @@
     "path": "^0.12.7",
     "pkg": "^4.4.9",
     "redis": "^3.0.2",
+    "redis-clustr": "^1.7.0",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.28",
     "winston": "^3.3.3",

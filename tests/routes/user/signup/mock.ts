@@ -13,9 +13,9 @@ export const USER_NICKNAME = 'test';
 export const USER_PHONENUMBER = '010-7164-0087';
 export const USER_PHONENUMBER2 = '010-1234-5678';
 
-export const randomNumSpy = jest.spyOn(Math, 'floor');
+export const randomNumSpy = jest.spyOn(Math, 'random');
 
-export const redisSetSpy = jest.spyOn(client, 'get');
+export const redisSetSpy = jest.spyOn(client, 'set');
 export const redisGetSpy = jest.spyOn(client, 'get');
 
 export const bcryptHashSpy = jest.spyOn(bcrypt, 'hash');
@@ -43,8 +43,8 @@ export const mockUserCreate = jest.fn(
 );
 
 export const mockUserFindByPhone = jest.fn(
-  async (phone: string): Promise<User> => {
-    if (phone === USER_PHONENUMBER)
+  async (phonenumber: string): Promise<User> => {
+    if (phonenumber === USER_PHONENUMBER)
       return {
         uuid: 1,
         permission: PERMISSION,

@@ -34,7 +34,7 @@ describe('Login basic route', () => {
 
   it('should send errpr when id is only send', async () => {
     const response = await addHeaders(
-      await request.post(endpoint).send({ id: USER_ID }),
+      request.post(endpoint).send({ id: USER_ID }),
     );
 
     expect(response.status).toBe(400);
@@ -47,7 +47,7 @@ describe('Login basic route', () => {
 
   it('should send errpr when id password only send', async () => {
     const response = await addHeaders(
-      await request.post(endpoint).send({ password: USER_PASSWORD }),
+      request.post(endpoint).send({ password: USER_PASSWORD }),
     );
 
     expect(response.status).toBe(400);
@@ -74,7 +74,7 @@ describe('Login basic route', () => {
   it('Should send error when id password not valid format', async () => {
     const response = await addHeaders(
       request.post(endpoint).send({
-        email: 'testtest',
+        id: 'testtest',
         password: '123',
       }),
     );
@@ -87,10 +87,10 @@ describe('Login basic route', () => {
     expect(createTokensSpy).not.toBeCalled();
   });
 
-  it('Should send error when user not registered for email', async () => {
+  it('Should send error when user not registered for id', async () => {
     const response = await addHeaders(
       request.post(endpoint).send({
-        email: 'testest',
+        id: 'testest',
         password: '123456',
       }),
     );
@@ -106,7 +106,7 @@ describe('Login basic route', () => {
   it('Should send error for wrong password', async () => {
     const response = await addHeaders(
       request.post(endpoint).send({
-        email: USER_ID,
+        id: USER_ID,
         password: '123456',
       }),
     );
@@ -121,12 +121,12 @@ describe('Login basic route', () => {
   it('Should send success response for correct credentials', async () => {
     const response = await addHeaders(
       request.post(endpoint).send({
-        email: USER_ID,
+        id: USER_ID,
         password: USER_PASSWORD,
       }),
     );
     expect(response.status).toBe(200);
-    expect(response.body.message).toMatch(/Success/i);
+    expect(response.body.message).toMatch(/success/i);
     expect(response.body.data).toBeDefined();
 
     expect(response.body.data.user).toHaveProperty('uuid');

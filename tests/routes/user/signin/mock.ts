@@ -15,16 +15,10 @@ export const bcryptCompareSpy = jest.spyOn(bcrypt, 'compare');
 
 export const mockUserKeyUpdate = jest.fn(
   async (
-    client: number,
+    uuid: number,
     primaryKey: string,
     secondaryKey: string,
-  ): Promise<User> => {
-    return {
-      uuid: client,
-      accessTokenKey: primaryKey,
-      refreshTokenKey: secondaryKey,
-    } as User;
-  },
+  ): Promise<void> => {},
 );
 
 export const mockUserFindById = jest.fn(
@@ -48,9 +42,7 @@ jest.mock('../../../../src/database/repository/UserRepo', () => ({
   get UserKeyUpdate() {
     return mockUserKeyUpdate;
   },
-}));
 
-jest.mock('../../../../src/database/repository/UserRepo', () => ({
   get findById() {
     return mockUserFindById;
   },

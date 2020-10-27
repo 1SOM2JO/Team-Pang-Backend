@@ -8,6 +8,10 @@ export const nexmo = new Nexmo({
 const from = 'Vonage APIs';
 const to = '821071640087';
 
-export const send = (phonenumber: string, text: string) => {
-  nexmo.message.sendSms(from, to, text);
+export const send = (phonenumber: string, code: string) => {
+  const phoneNumber = phonenumber.replace(/-/g, '');
+
+  const result = `82${phoneNumber.substr(1, phoneNumber.length)}`;
+
+  nexmo.message.sendSms(from, to, code);
 };

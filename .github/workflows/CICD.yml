@@ -42,10 +42,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - name: Dependencies Installation
-        run: mkdir logs
-      - name: make log file
-
         run: npm i
+
+      - name: make log file
+        run: mkdir logs
 
       - name: build
         run: npm run build
@@ -75,9 +75,6 @@ jobs:
       - name: Create .env file
         run: |
           touch .env
-
-      - name: ls   
-          run: dir
 
       - name: docker image build
         run: docker-compose up --build

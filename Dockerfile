@@ -12,7 +12,6 @@ RUN npm install -g nodemon
 RUN npm install -g ts-node 
 
 RUN ["ls"]
-RUN ["cat .env"]
 
 WORKDIR src
 

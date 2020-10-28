@@ -39,7 +39,7 @@ let option = {
   exitOnError: false,
 } as any;
 
-if (environment !== 'test') {
+if (environment === 'development') {
   option.exceptionHandlers = [new DailyRotateFile(options.file)];
 }
 

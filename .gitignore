@@ -4,3 +4,4 @@ src/logs
 logs
 .env
 coverage
+node_modules

@@ -7,12 +7,6 @@ import { environment, logDirectory } from '../config';
 let dir = logDirectory;
 if (!dir) dir = path.resolve('logs');
 
-// create directory if it is not present
-if (!fs.existsSync(dir)) {
-  // Create the directory if it does not exist
-  fs.mkdirSync(dir);
-}
-
 const logLevel = environment === 'development' ? 'debug' : 'warn';
 
 const options = {

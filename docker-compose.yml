@@ -1,0 +1,8 @@
+version: '3.0'
+services:
+  redis-server:
+    image: 'redis'
+  1som2jo:
+    build: .
+    ports:
+      - '80:80'

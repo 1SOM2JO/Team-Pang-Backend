@@ -7,18 +7,24 @@ import 'reflect-metadata';
 import { NotFoundError, ApiError, InternalError } from './core/apiError';
 import { createConnection } from 'typeorm';
 import connectionOptions from './database';
-import redis from 'redis';
+import asyncRedis from 'async-redis';
 import morgan from 'morgan';
 import { port } from './config';
 import router from './routes';
 
-export const client = redis.createClient(6379, '127.0.0.1');
+export const client = asyncRedis.createClient({
+  host: 'redis-server',
+  port: 6379,
+});
+
+client.on('connect', () => Logger.info('✓ redis connection success.'));
 
 const app = express();
 
-app.listen(80, () => {
-  Logger.info(`server running on port : ${port}`);
-});
+if (environment === 'development')
+  app.listen(80, () => {
+    Logger.info(`server running on port : ${port}`);
+  });
 
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(
@@ -37,15 +43,11 @@ createConnection(connectionOptions)
   })
   .catch((error) => Logger.error(error));
 
-client.on('connect', () => Logger.info('✓ redis connection success.'));
+app.get('/', (req, res) => {
+  res.status(200).json({ message: 'Hello World' });
+});
 
-app.use(
-  '/',
-  (req, res: Response) => {
-    res.send('helloworld!');
-  },
-  router,
-);
+app.use('/', router);
 
 app.use((req, res, next) => next(new NotFoundError()));
 

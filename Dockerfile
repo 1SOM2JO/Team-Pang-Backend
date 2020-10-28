@@ -6,8 +6,6 @@ FROM node:14
 COPY . .
 # WORKDIR 1some2jo
 
-
-
 # npm install 을 실행
 RUN npm install
 RUN npm install -g nodemon

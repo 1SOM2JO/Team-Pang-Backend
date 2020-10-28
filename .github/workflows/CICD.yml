@@ -40,9 +40,6 @@ jobs:
       - name: Dependencies Installation
         run: npm i
 
-      - name: unit test
-        run: npm test
-
       - name: build
         run: npm run build
 

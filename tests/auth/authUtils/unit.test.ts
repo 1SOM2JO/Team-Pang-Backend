@@ -1,7 +1,7 @@
 import { validateTokenData, createTokens } from '../../../src/auth/authUtils';
 import { JwtPayload } from '../../../src/core/JWT';
 import { tokenInfo } from '../../../src/config';
-import { AuthFailureError } from '../../../src/core/ApiError';
+import { AuthFailureError } from '../../../src/core/apiError';
 import { User } from '../../../src/database/model/User';
 
 const user = {

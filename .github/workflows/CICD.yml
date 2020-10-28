@@ -53,9 +53,28 @@ jobs:
   CD:
     runs-on: ubuntu-latest
     needs: CI
+    env:
+      NODE_ENV: ${{ secrets.secerts.NODE_ENV }}
+      PORT: ${{ secrets.PORT }}
+      DB_NAME: ${{ secrets.DB_NAME }}
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PWD: ${{ secrets.DB_PWD }}
+      ACCESS_TOKEN_VALIDITY_DAYS: ${{ secrets.ACCESS_TOKEN_VALIDITY_DAYS }}
+      REFRESH_TOKEN_VALIDITY_DAYS: $${{ secrets.REFRESH_TOKEN_VALIDITY_DAYS }}
+      TOKEN_ISSUER: ${{ secrets.TOKEN_ISSUER }}
+      TOKEN_AUDIENCE: ${{ secrets.TOKEN_AUDIENCE }}
+      TOKEN_KEY: ${{ secrets.TOKEN_KEY }}
+      APIKEY: ${{ secrets.APIKEY }}
+      LOG_DIR: ${{ secrets.LOG_DIR }}
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Create .env file
+        run: |
+          touch .env
 
       - name: docker image build
         run: docker-compose up --build

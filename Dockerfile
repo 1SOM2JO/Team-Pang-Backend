@@ -11,6 +11,9 @@ RUN npm install
 RUN npm install -g nodemon
 RUN npm install -g ts-node 
 
+RUN ["ls"]
+RUN ["cat .env"]
+
 WORKDIR src
 
 #컨테이너에서 실행될 명령을 지정

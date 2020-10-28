@@ -9,11 +9,6 @@ on:
 jobs:
   CI:
     runs-on: ubuntu-latest
-
-    - name: Create .env file
-      run: |
-        touch .env
-
     env:
       NODE_ENV: ${{ secrets.secerts.NODE_ENV }}
       PORT: ${{ secrets.PORT }}
@@ -36,6 +31,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Create .env file
+        run: |
+          touch .env
 
       - name: NodeJS Installation ${{ matrix.node-version }}
         uses: actions/setup-node@v1

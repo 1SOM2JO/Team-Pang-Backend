@@ -9,7 +9,6 @@ const router = express.Router();
 
 router.use('/', apikey);
 
-router.use('/user');
 router.use('/user/logout', logout);
 router.use('/user/signup', signup);
 router.use('/user/signin', signin);

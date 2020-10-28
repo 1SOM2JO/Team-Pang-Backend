@@ -44,8 +44,8 @@ jobs:
       - name: Dependencies Installation
         run: npm i
 
-      - name: make log file
-        run: mkdir logs
+      - name: fild
+        run: ls
 
       - name: build
         run: npm run build

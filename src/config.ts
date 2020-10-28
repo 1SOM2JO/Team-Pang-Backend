@@ -1,6 +1,8 @@
 // import path from 'path';
-// import * as dotenv from 'dotenv';
+import { config } from 'dotenv';
 // dotenv.config({ path: path.join(__dirname, '../.env') });
+
+config();
 
 export const hostAddress = process.env.HOST_ADDRESS;
 export const environment = process.env.NODE_ENV;

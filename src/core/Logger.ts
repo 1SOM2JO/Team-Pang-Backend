@@ -26,7 +26,7 @@ const options = {
   },
 };
 
-export default createLogger({
+let option = {
   transports: [
     new transports.Console({
       level: logLevel,
@@ -36,6 +36,11 @@ export default createLogger({
       ),
     }),
   ],
-  exceptionHandlers: [new DailyRotateFile(options.file)],
-  exitOnError: false, // do not exit on handled exceptions
-});
+  exitOnError: false,
+} as any;
+
+if (environment !== 'test') {
+  option.exceptionHandlers = [new DailyRotateFile(options.file)];
+}
+
+export default createLogger(option);

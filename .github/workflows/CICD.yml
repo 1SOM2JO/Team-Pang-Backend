@@ -39,6 +39,9 @@ jobs:
 
       - name: Dependencies Installation
         run: npm i
+      
+      - name: ls
+        run: ls
 
       - name: build
         run: npm run build

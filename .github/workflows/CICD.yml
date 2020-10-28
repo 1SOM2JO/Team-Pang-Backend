@@ -32,6 +32,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      name: Create .env file
+      run: |
+        touch .env
+        echo NODE_ENV=${{ secrets.secerts.NODE_ENV }} >> .env
+        echo DB_NAME=${{ secrets.DB_NAME }} >> .env
+        echo DB_HOST=${{ secrets.DB_HOST }} >> .env
+        echo DB_PORT=${{ secrets.DB_PORT }} >> .env
+        echo DB_USER=${{ secrets.DB_USER }} >> .env
+        echo DB_PWD=${{ secrets.DB_PWD }} >> .env
+
+
       - name: NodeJS Installation ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:

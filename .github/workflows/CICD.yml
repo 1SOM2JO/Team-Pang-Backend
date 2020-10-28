@@ -23,7 +23,7 @@ jobs:
       TOKEN_AUDIENCE: ${{ secrets.TOKEN_AUDIENCE }}
       TOKEN_KEY: ${{ secrets.TOKEN_KEY }}
       APIKEY: ${{ secrets.APIKEY }}
-      LOG_DIR: ${{ secrets.LOG_DIR }  }
+      LOG_DIR: ${{ secrets.LOG_DIR }}
 
     strategy:
       matrix:

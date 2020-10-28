@@ -9,8 +9,11 @@ on:
 jobs:
   CI:
     runs-on: ubuntu-latest
-    run: |
-      touch .env
+
+    - name: Create .env file
+      run: |
+        touch .env
+
     env:
       NODE_ENV: ${{ secrets.secerts.NODE_ENV }}
       PORT: ${{ secrets.PORT }}

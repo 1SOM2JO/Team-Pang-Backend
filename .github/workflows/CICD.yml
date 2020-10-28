@@ -77,7 +77,7 @@ jobs:
           touch .env
 
       - name: ls   
-          run: ls
+          run: dir
 
       - name: docker image build
         run: docker-compose up --build

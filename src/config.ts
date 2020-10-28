@@ -1,5 +1,6 @@
 import path from 'path';
 import * as dotenv from 'dotenv';
+console.log(process.env.NODE_ENV);
 
 if (process.env.NODE_ENV === 'development') {
   dotenv.config({ path: path.join(__dirname, '../.env') });

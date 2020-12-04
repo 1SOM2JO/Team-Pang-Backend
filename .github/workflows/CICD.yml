@@ -40,11 +40,10 @@ jobs:
       - name: Dependencies Installation
         run: npm i
 
-       - name: Start Redis
-         uses: supercharge/redis-github-action@1.1.0
-         with:
+      - name: Start Redis
+        uses: supercharge/redis-github-action@1.1.0
+        with:
           redis-version: 6
-
 
       - name: build
         run: npm run build

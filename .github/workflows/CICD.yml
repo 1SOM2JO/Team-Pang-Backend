@@ -40,8 +40,16 @@ jobs:
       - name: Dependencies Installation
         run: npm i
 
+      - name: Setup Redis with zhulik/redis-action
+        uses: zhulik/redis-action@1.1.0
+        with:
+          redis version: '5'
+          
       - name: build
         run: npm run build
+
+      - name: test
+        run: npm test
 
   CD:
     runs-on: ubuntu-latest

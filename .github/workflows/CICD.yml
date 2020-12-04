@@ -40,14 +40,11 @@ jobs:
       - name: Dependencies Installation
         run: npm i
 
-      - name: Setup Redis with zhulik/redis-action
-        uses: zhulik/redis-action@1.1.0
-        with:
-          redis version: '5'
+       - name: Start Redis
+         uses: supercharge/redis-github-action@1.1.0
+         with:
+          redis-version: 6
 
-      - name: redis run
-        run: docker pull redis
-        run: docker run --name some-redis -d -p 6379:6379 redis
 
       - name: build
         run: npm run build

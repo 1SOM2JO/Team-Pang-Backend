@@ -8,9 +8,11 @@ import userRepo from '../../database/repository/UserRepo';
 import { BadRequestError, NotFoundError } from '../../core/apiError';
 import bcrypt from 'bcrypt';
 import { client } from '../../app';
-import _ from 'lodash';
 import { send } from '../../middleware/smsSender';
 import { environment } from '../../config';
+import { User } from '../../database/model/User';
+import _ from 'lodash';
+
 
 const router = express.Router();
 
@@ -25,6 +27,8 @@ router.post(
     let ranCode = Math.floor(Math.random() * 1000000) + 100000;
     if (ranCode > 1000000) ranCode = ranCode - 100000;
 
+    console.log(ranCode);
+    
     send(req.body.phonenumber, ranCode.toString());
 
     client.set(
@@ -43,14 +47,14 @@ router.post(
     const user = await userRepo.findById(req.body.id);
     if (user) throw new BadRequestError('User already registered');
 
-    const result = await client.get(req.body.phonenumber);
+    const result: string = await client.get(req.body.phonenumber);
 
     if (!result) throw new NotFoundError('can not found phonenumber');
     if (req.body.code !== result) throw new BadRequestError('incorrect code');
 
     const passwordHash = await bcrypt.hash(req.body.password, 10);
 
-    const createdUser = await userRepo.createUser(
+    const createdUser: any = await userRepo.createUser(
       req.body.id,
       req.body.permission,
       req.body.nickname,
@@ -59,7 +63,14 @@ router.post(
     );
 
     new SuccessResponse('Signup Successful', {
-      createdUser,
+      createdUser: _.pick(createdUser.user, [
+            "uuid",
+            "id",
+            "permission",
+            "nickname",
+            "phonenumber",
+            "createdAt"
+      ])
     }).send(res);
   }),
 );

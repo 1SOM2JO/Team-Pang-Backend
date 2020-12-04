@@ -44,7 +44,11 @@ jobs:
         uses: zhulik/redis-action@1.1.0
         with:
           redis version: '5'
-          
+
+      - name: redis run
+        run: docker pull redis
+        run: docker run --name some-redis -d -p 6379:6379 redis
+
       - name: build
         run: npm run build
 

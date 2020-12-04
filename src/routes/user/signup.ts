@@ -10,7 +10,6 @@ import bcrypt from 'bcrypt';
 import { client } from '../../app';
 import { send } from '../../middleware/smsSender';
 import { environment } from '../../config';
-import { User } from '../../database/model/User';
 import _ from 'lodash';
 
 
@@ -47,7 +46,7 @@ router.post(
     const user = await userRepo.findById(req.body.id);
     if (user) throw new BadRequestError('User already registered');
 
-    const result: string = await client.get(req.body.phonenumber);
+    const result = await client.get(req.body.phonenumber);
 
     if (!result) throw new NotFoundError('can not found phonenumber');
     if (req.body.code !== result) throw new BadRequestError('incorrect code');

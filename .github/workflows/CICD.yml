@@ -39,19 +39,9 @@ jobs:
 
       - name: Dependencies Installation
         run: npm i
-    
-      - uses: actions/checkout@v2
-      - name: Setup redis
-        uses: shogo82148/actions-setup-redis@v1
-        with:
-          redis-version: ${{ matrix.redis }}
-          auto-start: "false"
 
       - name: build
         run: npm run build
-
-      - name: test
-        run: npm test
 
   CD:
     runs-on: ubuntu-latest

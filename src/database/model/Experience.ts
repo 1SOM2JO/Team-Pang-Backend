@@ -29,10 +29,10 @@ export class Experience {
   county: string;
 
   @Column('timestamp')
-  start_day: Date;
+  start_day: string;
 
   @Column('timestamp')
-  end_day: Date;
+  end_day: string;
 
   @Column()
   like: string;
@@ -44,7 +44,7 @@ export class Experience {
   img: string;
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt: string;
 
   @ManyToOne((type) => User, (user) => user.experience)
   user!: User;

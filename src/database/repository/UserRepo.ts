@@ -54,6 +54,14 @@ class UserRepository {
       .where('uuid = :uuid', { uuid })
       .execute();
   }
+
+  public static async test(
+    uuid: number
+  ) {
+    await getConnection()
+      .createQueryBuilder()
+      
+  }
 }
 
 export default UserRepository;

@@ -15,11 +15,11 @@ export const USER_PHONENUMBER2 = '010-1234-5678';
 
 export const randomNumSpy = jest.spyOn(Math, 'random');
 
-export const redisSetSpy = jest.spyOn(client, 'set');
-export const redisGetSpy = jest.spyOn(client, 'get');
-
 export const bcryptHashSpy = jest.spyOn(bcrypt, 'hash');
 export const smsSendSpy = jest.spyOn(nexmo.message, 'sendSms');
+
+export const redisSetSpy = client.set = jest.fn();
+export const redisGetSpy = client.get = jest.fn();
 
 export const mockUserCreate = jest.fn(
   async (

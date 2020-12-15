@@ -52,7 +52,7 @@ export class User {
   user_img: string;
 
   @CreateDateColumn({ type: 'timestamp' })
-  createdAt: Date;
+  createdAt: string;
 
   @OneToMany((type) => Product, (product) => product.user)
   product!: Product[];

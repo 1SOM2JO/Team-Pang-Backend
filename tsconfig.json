@@ -1,19 +1,37 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "esModuleInterop": true,
-    "target": "ESNext",
-    "noImplicitAny": true,
+    "target": "es6",
     "moduleResolution": "node",
+    "esModuleInterop": true,
+    "outDir": "dist",
     "sourceMap": true,
-    "outDir": "build",
-    "rootDir": "src",
-    "baseUrl": ".",
-    "emitDecoratorMetadata": true,
+    "typeRoots": ["node_modules/@types"],
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
-    "paths": {
-      "*": ["node_modules/*", "src/types/*"],
-    }
+    "emitDecoratorMetadata": true,
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "test"]
 }
+
+// {
+//   "compilerOptions": {
+//     "module": "commonjs",
+//     "esModuleInterop": true,
+//     "target": "ESNext",
+//     "noImplicitAny": true,
+//     "moduleResolution": "node",
+//     "sourceMap": true,
+//     "outDir": "build",
+//     "rootDir": "src",
+//     "baseUrl": ".",
+//     "emitDecoratorMetadata": true,
+//     "experimentalDecorators": true,
+//     "paths": {
+//       "*": ["node_modules/*", "src/types/*"],
+//     }
+//   },
+//   "include": ["src/**/*"]
+// }

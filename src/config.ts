@@ -1,15 +1,12 @@
 import path from 'path';
 import * as dotenv from 'dotenv';
-console.log(process.env.NODE_ENV);
 
-if (process.env.NODE_ENV === 'development') {
-  dotenv.config({ path: path.join(__dirname, '../.env') });
-}
+dotenv.config({ path: path.join(__dirname, '../.env') });
 
 export const hostAddress = process.env.HOST_ADDRESS;
 export const environment = process.env.NODE_ENV;
+
 export const port = process.env.PORT;
-console.log(port);
 
 export const db = {
   name: process.env.DB_NAME,

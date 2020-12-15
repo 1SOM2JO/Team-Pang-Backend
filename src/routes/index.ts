@@ -5,7 +5,6 @@ import logout from './user/logout';
 import token from './user/token';
 import registration from './experience/registration';
 import apikey from '../auth/apikey';
-import { User } from 'src/database/model/User';
 
 const router = express.Router();
 

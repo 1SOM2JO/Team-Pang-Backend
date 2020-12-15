@@ -13,7 +13,7 @@ import { port } from './config';
 import router from './routes';
 
 export const client = asyncRedis.createClient({
-  host: 'redis-server',
+  host: '127.0.0.1',
   port: 6379,
 });
 
@@ -21,10 +21,11 @@ client.on('connect', () => Logger.info('✓ redis connection success.'));
 
 const app = express();
 
-if (environment === 'development')
-  app.listen(80, () => {
+if (environment === 'development') {
+  app.listen(80, () => {    
     Logger.info(`server running on port : ${port}`);
   });
+} 
 
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(
@@ -35,7 +36,7 @@ app.use(
   }),
 );
 app.use(cors());
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 
 createConnection(connectionOptions)
   .then(() => {

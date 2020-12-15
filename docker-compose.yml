@@ -2,7 +2,11 @@ version: '3.0'
 services:
   redis-server:
     image: 'redis'
-  1som2jo:
-    build: .
     ports:
-      - '80:80'
+      -  "6379:6379"
+  mspring03:
+    image: 'mspring03/1som2jo:develop'
+    ports:
+      -  "80:80"
+    env_file:
+      - .env

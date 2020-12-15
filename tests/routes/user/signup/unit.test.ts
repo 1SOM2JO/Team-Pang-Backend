@@ -272,11 +272,12 @@ describe('Signup basic route', () => {
     expect(response.status).toBe(200);
     expect(response.body.message).toMatch(/Success/i);
     expect(response.body.data).toBeDefined();
-
-    expect(response.body.data.createdUser.user).toHaveProperty('id');
-    expect(response.body.data.createdUser.user).toHaveProperty('permission');
-    expect(response.body.data.createdUser.user).toHaveProperty('nickname');
-    expect(response.body.data.createdUser.user).toHaveProperty('phonenumber');
+    console.log(response.body.data);
+    
+    expect(response.body.data.createdUser).toHaveProperty('id');
+    expect(response.body.data.createdUser).toHaveProperty('permission');
+    expect(response.body.data.createdUser).toHaveProperty('nickname');
+    expect(response.body.data.createdUser).toHaveProperty('phonenumber');
 
     expect(mockUserFindById).toBeCalledTimes(1);
     expect(redisGetSpy).toBeCalledTimes(1);

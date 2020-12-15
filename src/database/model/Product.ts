@@ -42,7 +42,7 @@ export class Product {
   img: string;
 
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt: string;
 
   @ManyToOne((type) => User, (user) => user.product)
   user!: User;

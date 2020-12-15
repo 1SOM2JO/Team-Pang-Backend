@@ -26,4 +26,11 @@ export const tokenInfo = {
   key: process.env.TOKEN_KEY,
 };
 
+export const S3 = {
+  accessKeyId: process.env.S3_ACCESS,
+  secretAccessKey: process.env.S3_SECRET,
+  region: process.env.S3_REGION,
+  bucket: process.env.S3_NAME,
+}
+
 export const logDirectory = process.env.LOG_DIR;

@@ -12,6 +12,7 @@ export const send = (phonenumber: string, code: string) => {
   const phoneNumber = phonenumber.replace(/-/g, '');
 
   const result = `82${phoneNumber.substr(1, phoneNumber.length)}`;
-
+  console.log(code);
+  
   nexmo.message.sendSms(from, to, code);
 };

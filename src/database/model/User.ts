@@ -48,6 +48,9 @@ export class User {
   @Column()
   refreshTokenKey: string;
 
+  @Column()
+  user_img: string;
+
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 

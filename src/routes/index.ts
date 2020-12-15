@@ -1,9 +1,11 @@
 import express from 'express';
-import apikey from '../auth/apikey';
 import signup from './user/signup';
 import signin from './user/signin';
 import logout from './user/logout';
 import token from './user/token';
+import registration from './experience/registration';
+import apikey from '../auth/apikey';
+import { User } from 'src/database/model/User';
 
 const router = express.Router();
 
@@ -13,5 +15,7 @@ router.use('/user/logout', logout);
 router.use('/user/signup', signup);
 router.use('/user/signin', signin);
 router.use('/user/token', token);
+
+router.use('/experience/registration', registration);
 
 export default router;

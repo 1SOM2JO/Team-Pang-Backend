@@ -7,7 +7,9 @@ export default {
       'x-api-key': Joi.string().required(),
     })
     .unknown(true),
-  auth: Joi.object().keys({
-    authorization: JoiAuthBearer().required(),
-  }),
+  auth: Joi.object()
+    .keys({
+      authorization: JoiAuthBearer().required(),
+    })
+    .unknown(true),
 };

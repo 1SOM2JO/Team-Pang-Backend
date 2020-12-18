@@ -26,7 +26,7 @@ router.post(
     const accessTokenPayload = await JWT.decode(req.accessToken);
     validateTokenData(accessTokenPayload);
 
-    const user = await userRepo.findById(accessTokenPayload.sub);
+    const user = await userRepo.findByUuid(accessTokenPayload.sub);
     if (!user) throw new AuthFailureError('User not registered');
     req.user = user;
 

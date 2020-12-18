@@ -88,5 +88,11 @@
     "winston-daily-rotate-file": "^4.5.0",
     "yarn": "^1.22.10"
   },
-  "dependencies": {}
+  "dependencies": {
+    "connect-multiparty": "^2.2.0",
+    "module-alias": "^2.2.2"
+  },
+  "moduleAliases": {
+    "@src": "src"
+  }
 }

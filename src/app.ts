@@ -21,21 +21,14 @@ client.on('connect', () => Logger.info('✓ redis connection success.'));
 
 const app = express();
 
-if (environment === 'development') {
-  app.listen(80, () => {    
-    Logger.info(`server running on port : ${port}`);
-  });
-} 
+app.listen(80, () => {    
+  Logger.info(`server running on port : ${port}`);
+});
 
-app.use(bodyParser.json({ limit: '10mb' }));
-app.use(
-  bodyParser.urlencoded({
-    limit: '10mb',
-    extended: true,
-    parameterLimit: 50000,
-  }),
-);
 app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 app.use(morgan("dev"));
 
 createConnection(connectionOptions)

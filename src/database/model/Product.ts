@@ -33,7 +33,7 @@ export class Product {
   county: string;
 
   @Column()
-  like: string;
+  like: number;
 
   @Column()
   description: string;

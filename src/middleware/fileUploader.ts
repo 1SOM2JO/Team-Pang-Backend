@@ -2,10 +2,7 @@ import multer from "multer";
 import multerS3 from "multer-s3";
 import aws from "aws-sdk";
 import path from "path";
-import dotenv from "dotenv";
 import { S3 } from "../config";
-
-dotenv.config({ path: path.join(__dirname, "../../.env") });
 
 const s3 = new aws.S3({
   accessKeyId: S3.accessKeyId,

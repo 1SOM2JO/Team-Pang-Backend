@@ -11,6 +11,7 @@ import {
   AccessTokenError,
   TokenExpiredError,
 } from '../core/apiError';
+import { User } from '../database/model/User';
 
 const router = express.Router();
 
@@ -23,7 +24,7 @@ export default router.use(
       const payload = await JWT.validate(req.accessToken);
       validateTokenData(payload);
 
-      const user = await userRepo.findByUuid(payload.sub);
+      const user: User = await userRepo.findByUuid(payload.sub);
       if (!user) throw new AuthFailureError('User not registered');
       if (user.accessTokenKey !== payload.prm)
         throw new AuthFailureError('Invalid access token');

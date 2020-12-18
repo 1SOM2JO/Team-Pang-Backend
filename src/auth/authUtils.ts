@@ -29,12 +29,12 @@ export const createTokens = async (
   user: User,
   accessTokenKey: string,
   refreshTokenKey: string,
-): Promise<Tokens> => {
+): Promise<Tokens> => {  
   const accessToken = await JWT.encode(
     new JwtPayload(
       tokenInfo.issuer,
       tokenInfo.audience,
-      user.uuid.toString(),
+      user.uuid,
       accessTokenKey,
       tokenInfo.accessTokenValidityDays,
     ),
@@ -46,7 +46,7 @@ export const createTokens = async (
     new JwtPayload(
       tokenInfo.issuer,
       tokenInfo.audience,
-      user.uuid.toString(),
+      user.uuid,
       refreshTokenKey,
       tokenInfo.refreshTokenValidityDays,
     ),

@@ -14,7 +14,7 @@ export default router.use(
   asyncHandler(async (req: PublicRequest, res, next) => {
     req.apiKey = req.headers['x-api-key'].toString();
 
-    Logger.info(req.apiKey);
+    Logger.info(req.apiKey);    
 
     if (req.apiKey !== apiKey) throw new ForbiddenError();
 

@@ -41,7 +41,7 @@ export default class JWT {
 
 export class JwtPayload {
   aud: string;
-  sub: string;
+  sub: number;
   iss: string;
   iat: number;
   exp: number;
@@ -50,13 +50,13 @@ export class JwtPayload {
   constructor(
     issuer: string,
     audience: string,
-    subject: string,
+    subject: number,
     param: string,
     validity: number,
   ) {
     this.iss = issuer;
     this.aud = audience;
-    this.sub = subject;
+    this.sub = subject;    
     this.iat = Math.floor(Date.now() / 1000);
     this.exp = this.iat + validity * 60 * 60;
     this.prm = param;

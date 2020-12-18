@@ -2,7 +2,7 @@ import { getConnection, getRepository } from 'typeorm';
 import { User } from '../model/User';
 
 class UserRepository {
-  public static async findByUuid(uuid: string): Promise<User> {
+  public static async findByUuid(uuid: number): Promise<User> {
     return await getRepository(User)
       .createQueryBuilder('user')
       .where('user.uuid = :uuid', { uuid })

@@ -60,9 +60,11 @@ router.post(
       passwordHash,
       req.body.phonenumber,
     );
+    console.log(createdUser);
+        
 
     new SuccessResponse('Signup Successful', {
-      createdUser: _.pick(createdUser.user, [
+      createdUser: _.pick(createdUser, [
             "uuid",
             "id",
             "permission",

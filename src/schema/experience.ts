@@ -1,4 +1,5 @@
 import Joi from '@hapi/joi';
+import { join } from 'path';
 import { JoiAuthBearer } from '../middleware/validator';
 
 export default {
@@ -7,8 +8,8 @@ export default {
     "price": Joi.string().required(),
     "province": Joi.string().required(),
     "county": Joi.string().required(),
-    "start_day": Joi.string().required(),
-    "end_day": Joi.string().required(),
-    "image": Joi.any().required()
+    "description": Joi.string(),
+    "start_day": Joi.string().min(10).max(10).required(),
+    "end_day": Joi.string().min(10).max(10).required(),
   }),
 };

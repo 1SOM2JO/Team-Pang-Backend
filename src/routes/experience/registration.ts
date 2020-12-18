@@ -8,7 +8,10 @@ import authentication from '../../auth/authentication';
 import schema from '../../schema/experience';
 import ExperienceRepository from '../../database/repository/ExperienceRepo';
 import { uploadMiddleware } from '../../middleware/fileUploader';
+import multipart from 'connect-multiparty';
+import {S3} from '../../config';
 
+const multipartMiddleware = multipart();
 const router = express.Router();
 
 /*-------------------------------------------------------------------------*/
@@ -19,8 +22,8 @@ router.use('/', authentication);
 router.post(
     '/basic',
     validator(schema.registration),
-    uploadMiddleware.single("file"),
-    asyncHandler(async (req: Request, res: Response) => {
+    uploadMiddleware.single('image'),
+    asyncHandler(async (req: ProtectedRequest, res: Response) => {      
         ExperienceRepository.registration(
             req.body.experienceName,
             req.body.price,
@@ -29,7 +32,8 @@ router.post(
             req.body.description,
             req.body.start_day,
             req.body.end_day,
-            req.file["key"]
+            req.file['key'],
+            req.user
         );
 
         new SuccessMsgResponse('Success registration')

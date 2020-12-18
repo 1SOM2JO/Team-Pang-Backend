@@ -1,4 +1,4 @@
-import path from 'path';
+import path, { parse } from 'path';
 import * as dotenv from 'dotenv';
 
 dotenv.config({ path: path.join(__dirname, '../.env') });
@@ -19,8 +19,8 @@ export const db = {
 export const apiKey = process.env.APIKEY;
 
 export const tokenInfo = {
-  accessTokenValidityDays: parseInt(process.env.ACCESS_TOKEN_VALIDITY_HOURS),
-  refreshTokenValidityDays: parseInt(process.env.REFRESH_TOKEN_VALIDITY_HOURS),
+  accessTokenValidityDays: parseInt(process.env.ACCESS_TOKEN_VALIDITY_DAYS),
+  refreshTokenValidityDays: parseInt(process.env.REFRESH_TOKEN_VALIDITY_DAYS),
   issuer: process.env.TOKEN_ISSUER,
   audience: process.env.TOKEN_AUDIENCE,
   key: process.env.TOKEN_KEY,

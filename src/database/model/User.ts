@@ -15,6 +15,7 @@ import { Experience_report } from './Experience_report';
 import { Experience_like } from './Experience_like';
 import { Product_purchase } from './Product_purchase';
 import { Experience_application } from './Experience_application';
+import { Experience_comment } from './Experience_comment';
 
 export enum Permission {
   SELLER = 'SELLER',
@@ -69,7 +70,10 @@ export class User {
   )
   product_purchase!: Product_purchase[];
 
-  @OneToMany((type) => Experience, (experience) => experience.user)
+  @OneToMany(
+    (type) => Experience, 
+    (experience) => experience.user
+  )
   experience!: Experience[];
 
   @OneToMany(
@@ -83,6 +87,12 @@ export class User {
     (experience_like) => experience_like.user,
   )
   experience_like!: Experience_like[];
+
+  @OneToMany(
+    (type) => Experience_comment,
+    (experience_comment) => experience_comment.user,
+  )
+  experience_comment!: Experience_comment[];
 
   @OneToMany(
     (type) => Experience_application,

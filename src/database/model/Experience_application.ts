@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { CreateDateColumn, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { User } from './User';
 import { Experience } from './Experience';
 
@@ -6,6 +6,9 @@ import { Experience } from './Experience';
 export class Experience_application {
   @PrimaryGeneratedColumn()
   uuid: number;
+
+  @CreateDateColumn()
+  createdAt: string;
 
   @ManyToOne((type) => User, (user) => user.experience_application)
   user!: User;

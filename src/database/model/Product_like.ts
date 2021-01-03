@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { CreateDateColumn, Entity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 import { User } from './User';
 import { Product } from './Product';
@@ -7,6 +7,9 @@ import { Product } from './Product';
 export class Product_like {
   @PrimaryGeneratedColumn()
   uuid: number;
+
+  @CreateDateColumn()
+  createdAt: string;
 
   @ManyToOne((type) => User, (user) => user.product_like)
   user!: User;

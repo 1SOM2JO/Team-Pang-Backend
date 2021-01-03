@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne, Column } from 'typeorm';
+import { CreateDateColumn, Entity, PrimaryGeneratedColumn, ManyToOne, Column } from 'typeorm';
 import { User } from './User';
 import { Experience } from './Experience';
 
@@ -8,13 +8,16 @@ export class Experience_comment {
   uuid: number;
 
   @Column()
-  name: string;
+  nickname: string;
 
   @Column()
   star: number;
 
   @Column()
   comment: string;
+
+  @CreateDateColumn()
+  createdAt: string;
 
   @ManyToOne((type) => User, (user) => user.experience_comment)
   user!: User;

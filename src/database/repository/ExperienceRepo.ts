@@ -1,11 +1,11 @@
 import { getConnection, getRepository } from 'typeorm';
-import { Request } from 'express';
+import experience from '../../schema/experience';
 import { Experience } from '../model/Experience';
-import { expression } from '@hapi/joi';
+import { Experience_report } from '../model/Experience_report';
 import { User } from '../model/User';
 
 class ExperienceRepository {
-    public static async findByUuid(uuid: number) {        
+    public static async findByUuid(uuid: number): Promise<Experience> {        
         return await getRepository(Experience)
             .createQueryBuilder('experience')
             .leftJoinAndSelect('experience.user', 'user')
@@ -13,10 +13,25 @@ class ExperienceRepository {
             .getOne();
     }
 
-    // const today = new Date().toISOString().substring(0, 10);
-    // .where('experience.start_day <= :today', { today })
-    // .andWhere('experience.end_day >= :today', { today })
+    public static async likeUp(uuid: number): Promise<void> {
+        await getConnection()
+            .createQueryBuilder()
+            .update(Experience)
+            .set({ like: () => "experience.like + 1" })
+            .where("uuid = :uuid", { uuid })
+            .execute();
+    }
 
+    public static async likeDown(uuid: number): Promise<void> {
+        await getConnection()
+            .createQueryBuilder()
+            .update(Experience)
+            .set({ like: () => "experience.like - 1" })
+            .where("uuid = :uuid", { uuid })
+            .execute();
+    }
+    
+    
     public static async registration(
         experienceName: string,
         price: string,
@@ -27,7 +42,7 @@ class ExperienceRepository {
         endDay: string,
         image: string,
         user: User
-    ) {
+    ): Promise<void> {
         const experience = new Experience();
         experience.experience_name = experienceName;
         experience.price = price;
@@ -40,6 +55,19 @@ class ExperienceRepository {
         experience.img = image;
         experience.user = user;
         await getRepository(Experience).save(experience);
+    }
+
+    public static async basicSearch(page: number): Promise<Experience[]> {
+        const today = new Date().toISOString().substring(0, 10);
+
+        return await getRepository(Experience)
+            .createQueryBuilder('experience')
+            .where('experience.start_day <= :today', { today })
+            .andWhere('experience.end_day >= :today', { today })
+            .orderBy('experience.createdAt', 'DESC')
+            .limit(8)
+            .offset(page * 8)
+            .getMany()
     }
 }
 

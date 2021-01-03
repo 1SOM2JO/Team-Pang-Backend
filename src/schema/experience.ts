@@ -1,6 +1,4 @@
 import Joi from '@hapi/joi';
-import { join } from 'path';
-import { JoiAuthBearer } from '../middleware/validator';
 
 export default {
   registration: Joi.object().keys({
@@ -12,4 +10,9 @@ export default {
     "start_day": Joi.string().min(10).max(10).required(),
     "end_day": Joi.string().min(10).max(10).required(),
   }),
+  commentRegistration: Joi.object().keys({
+    "post_uuid": Joi.number().required(),
+    "star": Joi.number().required(),
+    "comment": Joi.string().max(250).required()
+  })
 };

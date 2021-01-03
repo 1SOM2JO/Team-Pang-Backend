@@ -22,8 +22,6 @@ export default (
   source: ValidationSource = ValidationSource.BODY,
 ) => (req: Request, res: Response, next: NextFunction) => {
   try {
-    console.log(req.body);
-    
     const { error } = schema.validate(req[source]);
     
     if (!error) return next();

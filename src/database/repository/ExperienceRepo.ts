@@ -31,7 +31,6 @@ class ExperienceRepository {
             .execute();
     }
     
-    
     public static async registration(
         experienceName: string,
         price: string,

@@ -15,7 +15,7 @@ import { Experience_comment } from '../../database/model/Experience_comment';
 import ExperienceLikeRepo from '../../database/repository/ExperienceLikeRepo';
 import ExperienceReportRepo from '../../database/repository/ExperienceReportRepo';
 import { Experience_report } from '../../database/model/Experience_report';
-import { number } from '@hapi/joi';
+import { number, valid } from '@hapi/joi';
 
 const router = express.Router();
 
@@ -135,6 +135,7 @@ router.delete(
 
 router.post(
     '/report',
+    validator(schema.report),
     asyncHandler(async (req: ProtectedRequest, res: Response) => {
         const experience: Experience = await ExperienceRepo.findByUuid(req.body.post_uuid);
         

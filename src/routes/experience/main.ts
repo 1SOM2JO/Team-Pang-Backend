@@ -1,6 +1,6 @@
 import express, { Request, response, Response } from 'express';
 import { ProtectedRequest } from 'app-request';
-import validator from '../../middleware/validator';
+import validator, { ValidationSource } from '../../middleware/validator';
 import { SuccessMsgResponse, SuccessResponse } from '../../core/apiResponse';
 import asyncHandler from '../../middleware/asyncHandler';
 import authentication from '../../auth/authentication';
@@ -25,6 +25,7 @@ router.use('/', authentication);
 
 router.get(
     '/basic/:page',
+    validator(schema.mainBasic, ValidationSource.PARAM),
     asyncHandler(async (req: ProtectedRequest, res: Response) => {      
         const experienceList = await ExperienceRepo.basicSearch(req.params.page);
     

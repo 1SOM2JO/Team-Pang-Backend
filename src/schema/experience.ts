@@ -37,4 +37,7 @@ export default {
   mainBasic: Joi.object().keys({
     "page": Joi.number().required(),
   }),
+  mainLike: Joi.object().keys({
+    "page": Joi.number().required(),
+  }),
 };

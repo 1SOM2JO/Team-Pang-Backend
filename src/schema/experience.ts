@@ -1,6 +1,15 @@
 import Joi from '@hapi/joi';
 
 export default {
+  basic: Joi.object().keys({
+    "experience_uuid": Joi.number().required(),
+  }),
+  star: Joi.object().keys({
+    "experience_uuid": Joi.number().required(),
+  }),
+  comment: Joi.object().keys({
+    "experience_uuid": Joi.number().required(),
+  }),
   registration: Joi.object().keys({
     "experienceName": Joi.string().min(2).required(),
     "price": Joi.string().required(),

@@ -46,4 +46,28 @@ router.get(
     }),
 )
 
+router.get(
+    '/like/:page',
+    validator(schema.mainLike, ValidationSource.PARAM),
+    asyncHandler(async (req: ProtectedRequest, res: Response) => {      
+        const experienceList = await ExperienceRepo.likeCountOrderSearch(req.params.page);
+    
+        new SuccessResponse('Success Experience List', {
+            experienceList: experienceList.map((data) => {
+                return _.pick(data, [
+                    "uuid",
+                    "experience_name",
+                    "price",
+                    "province",
+                    "county",
+                    "start_day",
+                    "end_day",
+                    "img"
+                ]);
+            })
+        }).send(res);
+    }),
+)
+
+
 export default router;

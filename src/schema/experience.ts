@@ -1,15 +1,6 @@
 import Joi from '@hapi/joi';
 
 export default {
-  basic: Joi.object().keys({
-    "experience_uuid": Joi.number().required(),
-  }),
-  star: Joi.object().keys({
-    "post_uuid": Joi.number().required(),
-  }),
-  comment: Joi.object().keys({
-    "experience_uuid": Joi.number().required(),
-  }),
   registration: Joi.object().keys({
     "experienceName": Joi.string().min(2).required(),
     "price": Joi.string().required(),
@@ -18,6 +9,15 @@ export default {
     "description": Joi.string(),
     "start_day": Joi.string().min(10).max(10).required(),
     "end_day": Joi.string().min(10).max(10).required(),
+  }),
+  postDetail: Joi.object().keys({
+    "experience_uuid": Joi.number().required(),
+  }),
+  star: Joi.object().keys({
+    "post_uuid": Joi.number().required(),
+  }),
+  comment: Joi.object().keys({
+    "experience_uuid": Joi.number().required(),
   }),
   commentRegistration: Joi.object().keys({
     "post_uuid": Joi.number().required(),
@@ -33,5 +33,8 @@ export default {
   report: Joi.object().keys({
     "post_uuid": Joi.number().required(),
     "description": Joi.string().max(250).required()
-  })
+  }),
+  mainBasic: Joi.object().keys({
+    "page": Joi.number().required(),
+  }),
 };

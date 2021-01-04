@@ -1,6 +1,6 @@
 import express, { Request, response, Response } from 'express';
 import { ProtectedRequest } from 'app-request';
-import validator from '../../middleware/validator';
+import validator, { ValidationSource } from '../../middleware/validator';
 import { SuccessMsgResponse, SuccessResponse } from '../../core/apiResponse';
 import asyncHandler from '../../middleware/asyncHandler';
 import authentication from '../../auth/authentication';
@@ -26,7 +26,7 @@ router.use('/', authentication);
 
 router.get(
     '/basic/:experience_uuid',
-    
+    validator(schema.basic, ValidationSource.PARAM),
     asyncHandler(async (req: ProtectedRequest, res: Response) => {
         const experienceUuid = req.params.experience_uuid;
         const experience = await ExperienceRepo.findByUuid(Number(experienceUuid));
@@ -55,6 +55,7 @@ router.get(
 
 router.get(
     '/star/:post_uuid',
+    validator(schema.star, ValidationSource.PARAM),
     asyncHandler(async (req: ProtectedRequest, res: Response) => {
         const likeAverage = await ExperienceCommentRepo.getLikeAverage(req.params.post_uuid);
         
@@ -66,7 +67,7 @@ router.get(
 
 router.get(
     '/comment/:experience_uuid',
-    
+    validator(schema.comment, ValidationSource.PARAM),
     asyncHandler(async (req: ProtectedRequest, res: Response) => {
         const experienceUuid = req.params.experience_uuid;
         const experienceComment = await ExperienceCommentRepo.findAllByUuid(Number(experienceUuid));

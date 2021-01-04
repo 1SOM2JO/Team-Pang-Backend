@@ -68,6 +68,19 @@ class ExperienceRepository {
             .offset(page * 8)
             .getMany()
     }
+
+    public static async likeCountOrderSearch(page: number): Promise<Experience[]> {
+        const today = new Date().toISOString().substring(0, 10);
+
+        return await getRepository(Experience)
+            .createQueryBuilder('experience')
+            .where('experience.start_day <= :today', { today })
+            .andWhere('experience.end_day >= :today', { today })
+            .orderBy('experience.like', 'DESC')
+            .limit(8)
+            .offset(page * 8)
+            .getMany()
+    }
 }
 
 export default ExperienceRepository;

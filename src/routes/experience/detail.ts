@@ -106,6 +106,7 @@ router.post(
 
 router.post(
     '/like',
+    validator(schema.like),
     asyncHandler(async (req: ProtectedRequest, res: Response) => {
         const experience: Experience = await ExperienceRepo.findByUuid(req.body.post_uuid);
         if(await ExperienceLikeRepo.findByUuidAndExperienceUuid(req.user.uuid, experience.uuid))

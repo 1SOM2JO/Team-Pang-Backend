@@ -26,7 +26,7 @@ router.use('/', authentication);
 
 router.get(
     '/basic/:experience_uuid',
-    validator(schema.basic, ValidationSource.PARAM),
+    validator(schema.postDetail, ValidationSource.PARAM),
     asyncHandler(async (req: ProtectedRequest, res: Response) => {
         const experienceUuid = req.params.experience_uuid;
         const experience = await ExperienceRepo.findByUuid(Number(experienceUuid));

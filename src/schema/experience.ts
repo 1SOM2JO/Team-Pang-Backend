@@ -18,7 +18,11 @@ export default {
   like: Joi.object().keys({
     "post_uuid": Joi.number().required(),
   }),
-  unlike:Joi.object().keys({
+  unlike: Joi.object().keys({
     "post_uuid": Joi.number().required(),
+  }),
+  report: Joi.object().keys({
+    "post_uuid": Joi.number().required(),
+    "description": Joi.string().max(250).required()
   })
 };

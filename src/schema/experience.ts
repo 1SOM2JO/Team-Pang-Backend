@@ -14,5 +14,11 @@ export default {
     "post_uuid": Joi.number().required(),
     "star": Joi.number().required(),
     "comment": Joi.string().max(250).required()
+  }),
+  like: Joi.object().keys({
+    "post_uuid": Joi.number().required(),
+  }),
+  unlike:Joi.object().keys({
+    "post_uuid": Joi.number().required(),
   })
 };

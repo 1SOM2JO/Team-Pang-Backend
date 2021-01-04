@@ -26,6 +26,7 @@ router.use('/', authentication);
 
 router.get(
     '/basic/:experience_uuid',
+    
     asyncHandler(async (req: ProtectedRequest, res: Response) => {
         const experienceUuid = req.params.experience_uuid;
         const experience = await ExperienceRepo.findByUuid(Number(experienceUuid));
@@ -119,6 +120,7 @@ router.post(
 
 router.delete(
     '/unlike',
+    validator(schema.unlike),
     asyncHandler(async (req: ProtectedRequest, res: Response) => {
         const experience: Experience = await ExperienceRepo.findByUuid(req.body.post_uuid);
         if(!(await ExperienceLikeRepo.findByUuidAndExperienceUuid(req.user.uuid, experience.uuid)))

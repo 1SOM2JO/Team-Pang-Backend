@@ -72,6 +72,7 @@ describe('signup smsSender route', () => {
     const response = await addHeaders(
       request.post(endpoint).send({ phonenumber: USER_PHONENUMBER2 }),
     );
+
     expect(response.status).toBe(200);
     expect(response.body.message).toMatch(/send success/);
     expect(mockUserFindByPhone).toBeCalledTimes(1);
@@ -257,7 +258,7 @@ describe('Signup basic route', () => {
     expect(mockUserCreate).not.toBeCalled();
   });
 
-  it('Should send success response for correct data', async () => {
+  it('Should send success response for correct data', async () => {    
     const response = await addHeaders(
       request.post(endpoint).send({
         id: TEST_ID,
@@ -272,7 +273,6 @@ describe('Signup basic route', () => {
     expect(response.status).toBe(200);
     expect(response.body.message).toMatch(/Success/i);
     expect(response.body.data).toBeDefined();
-    console.log(response.body.data);
     
     expect(response.body.data.createdUser).toHaveProperty('id');
     expect(response.body.data.createdUser).toHaveProperty('permission');

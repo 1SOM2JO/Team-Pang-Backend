@@ -24,7 +24,7 @@ describe('authUtils validateTokenData tests', () => {
     const payload = new JwtPayload(
       tokenInfo.issuer,
       tokenInfo.audience,
-      '1',
+      1,
       '1234',
       tokenInfo.accessTokenValidityDays,
     );

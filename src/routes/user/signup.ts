@@ -7,12 +7,12 @@ import { RoleRequest } from 'app-request';
 import userRepo from '../../database/repository/UserRepo';
 import { BadRequestError, NotFoundError } from '../../core/apiError';
 import bcrypt from 'bcrypt';
-import { client } from '../../app';
+import cachedb from '../../loaders/cachedb';
 import { send } from '../../middleware/smsSender';
 import { environment } from '../../config';
 import _ from 'lodash';
 
-
+const client = cachedb();
 const router = express.Router();
 
 router.post(
@@ -25,14 +25,12 @@ router.post(
 
     let ranCode = Math.floor(Math.random() * 1000000) + 100000;
     if (ranCode > 1000000) ranCode = ranCode - 100000;
-
-    console.log(ranCode);
     
     send(req.body.phonenumber, ranCode.toString());
 
-    client.set(
+    await client.set(
       req.body.phonenumber,
-      environment === 'development' ? ranCode.toString() : '123456',
+      ranCode.toString()
     );
 
     new SuccessResponse('send success', {}).send(res);
@@ -47,6 +45,7 @@ router.post(
     if (user) throw new BadRequestError('User already registered');
 
     const result = await client.get(req.body.phonenumber);
+    console.log(result);
 
     if (!result) throw new NotFoundError('can not found phonenumber');
     if (req.body.code !== result) throw new BadRequestError('incorrect code');
@@ -59,9 +58,7 @@ router.post(
       req.body.nickname,
       passwordHash,
       req.body.phonenumber,
-    );
-    console.log(createdUser);
-        
+    );  
 
     new SuccessResponse('Signup Successful', {
       createdUser: _.pick(createdUser, [

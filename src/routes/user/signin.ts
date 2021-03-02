@@ -15,7 +15,6 @@ import { createTokens } from '../../auth/authUtils';
 import {
   BadRequestError,
   AuthFailureError,
-  NotFoundError,
 } from '../../core/apiError';
 
 const router = express.Router();
